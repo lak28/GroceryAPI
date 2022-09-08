@@ -1,0 +1,329 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Notification Engine",
+    "description": "Notification API list"
+  },
+  "tags": [
+    {
+      "name": "Customer",
+      "description": "API for customer management"
+    },
+    {
+      "name": "Products",
+      "description": "API for product management"
+    },
+    {
+      "name": "Order",
+      "description": "API to get customer withmax order"
+    }
+  ],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/customer": {
+      "get": {
+        "tags": ["Customer"],
+        "description": "Get customer list",
+        "parameters": [
+        ],
+        "produces": ["application/json"],
+        "responses": {}
+      }
+    },
+    "/api/customer/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Customer Id",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Customer"],
+        "responses": {}
+      }
+    },
+    "/api/customer/new": {
+      "post": {
+        "tags": ["Customer"],
+        "description": "Add new Customer",
+        "parameters": [
+         
+          {
+            "name": "Customer",
+            "in": "body",
+            "description": "Customer to be added",
+            "schema": {
+              "$ref": "#/definitions/createEntity"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {}
+      }
+    },
+    "/api/customer/order/{id}": {
+      "get": {
+        "tags": ["Order"],
+        "description": "get order by customer id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Customer Id",
+            "required": true,
+            "type": "string"
+            }
+        ],
+        "produces": ["application/json"],
+        "responses": {}
+      }
+    },
+
+
+    "/api/product": {
+      "get": {
+        "tags": ["Products"],
+        "description": "get list of products",
+        "parameters": [
+      
+        ],
+        "produces": ["application/json"],
+        "responses": {}
+      }
+    },
+
+    "/api/product/new": {
+      "post": {
+        "tags": ["Products"],
+        "description": "create new product in database",
+        "parameters": [
+          {
+            "name": "Notification",
+
+            "in": "body",
+
+            "description": "Notification type ",
+
+            "schema": {
+              "$ref": "#/definitions/sendNotification"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {}
+      }
+    },
+    "/api/product/{id}": {
+      "put": {
+        "tags": ["Products"],
+
+        "description": "update product details",
+
+        "parameters": [
+          {
+            "name": "id",
+
+            "in": "body",
+
+            "description": "product",
+
+            "schema": {
+              "$ref": "#/definitions/sendNotification"
+            }
+          }
+        ],
+
+        "produces": ["application/json"],
+
+        "responses": {}
+      }
+    },
+    
+    "/api/order/max": {
+      "get": {
+        "tags": ["Order"],
+        "description": "get customer detail with max orders",
+        "parameters": [
+        ],
+        "produces": ["application/json"],
+        "responses": {}
+      }
+    }
+
+    
+
+
+
+  },
+  "definitions": {
+    "secretKey": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "secretKey": {
+          "type": "string"
+        }
+      }
+    },
+
+    "createEntity": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "phoneNo": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+
+    "clientName": {
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+
+    "searchEntity": {
+      "properties": {
+        "Id": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+
+    "updateEntity": {
+      "properties": {
+        "Id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "phoneNumber": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "deviceId": {
+          "type": "number",
+          "uniqueItems": true
+        }
+      }
+    },
+
+    "sendNotification": {
+      "properties": {
+        "category": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "info": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "price": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "quantity": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+
+    "User": {
+      "required": ["name", "_id", "companies"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "isPublic": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "books": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "companies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "updateUser": {
+      "required": ["name", "companies"],
+      "properties": {
+        "isPublic": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "books": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "companies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "$ref": "#/definitions/User"
+    }
+  }
+}
